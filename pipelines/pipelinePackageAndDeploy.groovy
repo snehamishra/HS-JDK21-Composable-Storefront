@@ -32,22 +32,22 @@ pipeline {
             }
         }
 
-/*        stage('Deploy') {
+       stage('Deploy') {
             steps{
                 script{
                     deploymentCode = commerceCloudDeploy(codeNumber, "${params.DB_UPDATE_MODE}", "${params.ENVIRONMENT_ID}", "${params.DEPLOY_STRATEGY}")
                     commerceCloudDeployCheck(deploymentCode)
                 }
             }
-        }*/
-        stage('Deploy') {
+        }
+/*        stage('Deploy') {
             when {
                 expression { false }
             }
             steps {
                 echo "Deployment disabled"
             }
-        }
+        }*/
     }
 
     // post build actions
