@@ -5,7 +5,9 @@ def call(codeNumber) {
     echo ">>> codeNumber: ${codeNumber}"
     echo "=============================="
 
-    while (true) {
+    boolean buildCompleted = false
+
+    while (!buildCompleted) {
 
         withCredentials([
                 string(credentialsId: 'commerceCloudSubscriptionCode',
@@ -38,15 +40,20 @@ def call(codeNumber) {
 
             if (json.status == "SUCCESS") {
                 echo ">>> BUILD SUCCESS ✅"
-                return
-            }
+                buildCompleted = true
 
-            if (json.status == "FAIL") {
+            } else if (json.status == "FAIL") {
                 error("BUILD FAILED IN SAP COMMERCE CLOUD")
             }
         }
 
-        echo ">>> WAITING 120 SECONDS BEFORE NEXT POLL"
-        sleep 120
+        if (!buildCompleted) {
+            echo ">>> WAITING 120 SECONDS BEFORE NEXT POLL"
+            sleep 120
+        }
     }
+
+    echo "=============================="
+    echo ">>> STEP 7: BUILD COMPLETED SUCCESSFULLY"
+    echo "=============================="
 }
