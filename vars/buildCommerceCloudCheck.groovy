@@ -8,7 +8,8 @@ def call(codeNumber) {
     while (true) {
 
         withCredentials([
-                string(credentialsId: 'commerceCloudSubscriptionCode', variable: 'SUBSCRIPTION_CODE')
+                string(credentialsId: 'commerceCloudSubscriptionCode',
+                        variable: 'SUBSCRIPTION_CODE')
         ]) {
 
             def token = getCommerceCloudToken()
@@ -18,7 +19,7 @@ def call(codeNumber) {
             def result = sh(
                     script: """
                 curl -sS --location \
-                'https://portalapi.commerce.ondemand.com/v2/subscriptions/${subscriptionCode}/builds/${codeNumber}' \
+                'https://portalapi.commerce.ondemand.com/v2/subscriptions/${SUBSCRIPTION_CODE}/builds/${codeNumber}' \
                 --header 'x-approuter-authorization: Bearer ${token}'
                 """,
                     returnStdout: true
@@ -37,7 +38,7 @@ def call(codeNumber) {
 
             if (json.status == "SUCCESS") {
                 echo ">>> BUILD SUCCESS ✅"
-                return   // ✅ FIXED (exit loop)
+                return
             }
 
             if (json.status == "FAIL") {
@@ -48,8 +49,4 @@ def call(codeNumber) {
         echo ">>> WAITING 120 SECONDS BEFORE NEXT POLL"
         sleep 120
     }
-
-    echo "=============================="
-    echo ">>> STEP 7: BUILD COMPLETED SUCCESSFULLY"
-    echo "=============================="
 }
