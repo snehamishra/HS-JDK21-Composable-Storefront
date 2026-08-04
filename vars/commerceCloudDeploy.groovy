@@ -1,13 +1,16 @@
-def call(buildCode, dbUpdateMode, environmentId, strategy, subscriptionid) {
+def call(buildCode, dbUpdateMode, environmentId, strategy, subscriptionid, Map params = [:]) {
 
     echo "##### Initiate Deployment to SAP Commerce Cloud Environment #####"
+
+    def clientIdCredentialsId = params.clientIdCredentialsId ?: 'cc-client-id'
+    def clientSecretCredentialsId = params.clientSecretCredentialsId ?: 'cc-client-secret'
 
     withCredentials([
             string(credentialsId: 'commerceCloudSubscriptionCode',
                     variable: 'SUBSCRIPTION_CODE')
     ]) {
 
-        def token = getCommerceCloudToken()
+        def token = getCommerceCloudToken(clientIdCredentialsId: clientIdCredentialsId, clientSecretCredentialsId: clientSecretCredentialsId)
 
         def responseFile = "deploy_response.json"
 

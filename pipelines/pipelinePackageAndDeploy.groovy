@@ -26,8 +26,13 @@ pipeline {
         stage('Build') {
             steps{
                 script{
-                    codeNumber = buildCommerceCloud("${params.PROJECT_TAG}", "${params.BUILD_NAME}", "${params.SUBSCRIPTION_ID}")
-                    buildCommerceCloudCheck(codeNumber, "${params.SUBSCRIPTION_ID}")
+                    def ccCreds = [
+                        clientIdCredentialsId: params.COMMERCE_CLIENT_ID_CREDENTIALS_ID,
+                        clientSecretCredentialsId: params.COMMERCE_CLIENT_SECRET_CREDENTIALS_ID
+                    ]
+
+                    codeNumber = buildCommerceCloud(params.PROJECT_TAG, params.BUILD_NAME, params.SUBSCRIPTION_ID, ccCreds)
+                    buildCommerceCloudCheck(codeNumber, params.SUBSCRIPTION_ID, ccCreds)
                 }
             }
         }
@@ -35,8 +40,13 @@ pipeline {
        stage('Deploy') {
             steps{
                 script{
-                    deploymentCode = commerceCloudDeploy(codeNumber, "${params.DB_UPDATE_MODE}", "${params.ENVIRONMENT_ID}", "${params.DEPLOY_STRATEGY}", "${params.SUBSCRIPTION_ID}")
-                    commerceCloudDeployCheck(deploymentCode, "${params.SUBSCRIPTION_ID}")
+                    def ccCreds = [
+                        clientIdCredentialsId: params.COMMERCE_CLIENT_ID_CREDENTIALS_ID,
+                        clientSecretCredentialsId: params.COMMERCE_CLIENT_SECRET_CREDENTIALS_ID
+                    ]
+
+                    deploymentCode = commerceCloudDeploy(codeNumber, params.DB_UPDATE_MODE, params.ENVIRONMENT_ID, params.DEPLOY_STRATEGY, params.SUBSCRIPTION_ID, ccCreds)
+                    commerceCloudDeployCheck(deploymentCode, params.SUBSCRIPTION_ID, ccCreds)
                 }
             }
         }
