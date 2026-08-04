@@ -1,4 +1,4 @@
-def call(codeNumber,subscriptionid) {
+def call(codeNumber, subscriptionid) {
 
     echo "=============================="
     echo ">>> STEP 6: BUILD STATUS CHECK STARTED"
