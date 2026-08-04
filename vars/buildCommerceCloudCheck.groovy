@@ -1,4 +1,4 @@
-def call(codeNumber) {
+def call(codeNumber,subscriptionid) {
 
     echo "=============================="
     echo ">>> STEP 6: BUILD STATUS CHECK STARTED"
@@ -21,7 +21,7 @@ def call(codeNumber) {
             def result = sh(
                     script: """
                 curl -sS --location \
-                'https://portalapi.commerce.ondemand.com/v2/subscriptions/${SUBSCRIPTION_CODE}/builds/${codeNumber}' \
+                'https://portalapi.commerce.ondemand.com/v2/subscriptions/${subscriptionid}/builds/${codeNumber}' \
                 --header 'x-approuter-authorization: Bearer ${token}'
                 """,
                     returnStdout: true
