@@ -1,4 +1,4 @@
-def call(buildCode, dbUpdateMode, environmentId, strategy,subscriptionid) {
+def call(buildCode, dbUpdateMode, environmentId, strategy, subscriptionid) {
 
     echo "##### Initiate Deployment to SAP Commerce Cloud Environment #####"
 
