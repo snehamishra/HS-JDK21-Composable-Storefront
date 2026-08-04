@@ -92,6 +92,14 @@ class JobParameters {
         }
     }
 
+    static void setSubscriptionId(job, subscriptionId) {
+        job.with {
+            parameters {
+                stringParam('SUBSCRIPTION_ID', subscriptionId, 'Subscription ID to deploy to (optional)')
+            }
+        }
+    }
+
     static void setStrategy(job) {
         job.with {
             parameters {
@@ -158,6 +166,7 @@ JobParameters.setBuildName(packageAndDeploy, buildName)
 JobParameters.setProjectTag(packageAndDeploy, projectTag)
 JobParameters.setDatabaseUpdateMode(packageAndDeploy)
 JobParameters.setEnvironment(packageAndDeploy, environment)
+JobParameters.setSubscriptionId(packageAndDeploy, subscriptionCode)
 JobParameters.setStrategy(packageAndDeploy)
 
 def buildDailyProduction = pipelineJob('BuildDailyProduction') {

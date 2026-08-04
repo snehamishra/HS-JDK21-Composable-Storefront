@@ -1,4 +1,4 @@
-def call(buildCode, dbUpdateMode, environmentId, strategy) {
+def call(buildCode, dbUpdateMode, environmentId, strategy, subscriptionid) {
 
     echo "##### Initiate Deployment to SAP Commerce Cloud Environment #####"
 
@@ -17,7 +17,7 @@ def call(buildCode, dbUpdateMode, environmentId, strategy) {
             -o ${responseFile} \
             -w "%{http_code}" \
             --location --request POST \
-            "https://portalapi.commerce.ondemand.com/v2/subscriptions/${SUBSCRIPTION_CODE}/deployments" \
+            "https://portalapi.commerce.ondemand.com/v2/subscriptions/${subscriptionid}/deployments" \
             --header "Content-Type: application/json" \
             --header "Accept: application/json" \
             --header "x-approuter-authorization: Bearer ${token}" \

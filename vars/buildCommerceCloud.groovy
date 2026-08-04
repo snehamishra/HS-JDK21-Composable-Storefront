@@ -1,4 +1,4 @@
-def call(branch, buildName) {
+def call(branch, buildName, subscriptionid) {
 
     echo "=============================="
     echo ">>> STEP 2: BUILD INITIATED"
@@ -24,7 +24,7 @@ def call(branch, buildName) {
                 -o ${responseFile} \
                 -w "%{http_code}" \
                 --location --request POST \
-                "https://portalapi.commerce.ondemand.com/v2/subscriptions/${SUBSCRIPTION_CODE}/builds" \
+                "https://portalapi.commerce.ondemand.com/v2/subscriptions/${subscriptionid}/builds" \
                 --header "Content-Type: application/json" \
                 --header "Accept: application/json" \
                 --header "x-approuter-authorization: Bearer ${token}" \
