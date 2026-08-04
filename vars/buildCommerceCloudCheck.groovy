@@ -1,4 +1,4 @@
-def call(codeNumber, subscriptionid) {
+def call(codeNumber, subscriptionid, Map params = [:]) {
 
     echo "=============================="
     echo ">>> STEP 6: BUILD STATUS CHECK STARTED"
@@ -7,6 +7,9 @@ def call(codeNumber, subscriptionid) {
 
     boolean buildCompleted = false
 
+    def clientIdCredentialsId = params.clientIdCredentialsId ?: 'cc-client-id'
+    def clientSecretCredentialsId = params.clientSecretCredentialsId ?: 'cc-client-secret'
+
     while (!buildCompleted) {
 
         withCredentials([
@@ -14,7 +17,7 @@ def call(codeNumber, subscriptionid) {
                         variable: 'SUBSCRIPTION_CODE')
         ]) {
 
-            def token = getCommerceCloudToken()
+            def token = getCommerceCloudToken(clientIdCredentialsId: clientIdCredentialsId, clientSecretCredentialsId: clientSecretCredentialsId)
 
             echo ">>> CALLING STATUS API FOR CODE: ${codeNumber}"
 

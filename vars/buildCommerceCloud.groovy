@@ -1,4 +1,4 @@
-def call(branch, buildName, subscriptionid) {
+def call(branch, buildName, subscriptionid, Map params = [:]) {
 
     echo "=============================="
     echo ">>> STEP 2: BUILD INITIATED"
@@ -6,7 +6,10 @@ def call(branch, buildName, subscriptionid) {
     echo ">>> buildName: ${buildName}"
     echo "=============================="
 
-    def token = getCommerceCloudToken()
+    def clientIdCredentialsId = params.clientIdCredentialsId ?: 'cc-client-id'
+    def clientSecretCredentialsId = params.clientSecretCredentialsId ?: 'cc-client-secret'
+
+    def token = getCommerceCloudToken(clientIdCredentialsId: clientIdCredentialsId, clientSecretCredentialsId: clientSecretCredentialsId)
 
     withCredentials([
             string(credentialsId: 'commerceCloudSubscriptionCode',
