@@ -1,4 +1,4 @@
-def call(deployCode,subscriptionid) {
+def call(deployCode, subscriptionid) {
     script {
         while (true) {
           withCredentials([
