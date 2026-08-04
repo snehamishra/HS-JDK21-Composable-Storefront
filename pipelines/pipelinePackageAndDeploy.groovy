@@ -27,7 +27,7 @@ pipeline {
             steps{
                 script{
                     codeNumber = buildCommerceCloud("${params.PROJECT_TAG}", "${params.BUILD_NAME}", "${params.SUBSCRIPTION_ID}")
-                    buildCommerceCloudCheck(codeNumber)
+                    buildCommerceCloudCheck(codeNumber, "${params.SUBSCRIPTION_ID}")
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps{
                 script{
                     deploymentCode = commerceCloudDeploy(codeNumber, "${params.DB_UPDATE_MODE}", "${params.ENVIRONMENT_ID}", "${params.DEPLOY_STRATEGY}", "${params.SUBSCRIPTION_ID}")
-                    commerceCloudDeployCheck(deploymentCode)
+                    commerceCloudDeployCheck(deploymentCode, "${params.SUBSCRIPTION_ID}")
                 }
             }
         }
