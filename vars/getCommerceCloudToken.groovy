@@ -16,6 +16,8 @@ def call(Map params = [:]) {
     def tokenResponse
 
     if (providedClientId && providedClientSecret) {
+       echo "Using credential IDs: providedClientId / providedClientSecret"
+
         // Use provided values directly
         tokenResponse = sh(
                 script: """
