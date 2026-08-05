@@ -10,8 +10,8 @@ def call(Map params = [:]) {
     def clientSecretCredentialsId = params.clientSecretCredentialsId ?: params.CLIENT_SECRET_CREDENTIALS_ID ?: 'cc-client-secret'
 
     // Optionally allow passing raw client id/secret directly (not recommended for production):
-    def providedClientId = params.clientId ?: params.CLIENT_ID
-    def providedClientSecret = params.clientSecret ?: params.CLIENT_SECRET
+    def providedClientId = params.clientIdCredentialsId ?:params.clientId ?: params.CLIENT_ID
+    def providedClientSecret = params.clientSecretCredentialsId ?:params.clientSecret ?: params.CLIENT_SECRET
 
     def tokenResponse
     echo "Using credential IDs: ${params.clientIdCredentialsId} / ${params.clientSecretCredentialsId}"
