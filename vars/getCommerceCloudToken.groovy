@@ -14,7 +14,7 @@ def call(Map params = [:]) {
     def providedClientSecret = params.clientSecret ?: params.CLIENT_SECRET
 
     def tokenResponse
-    echo "Using credential IDs: providedClientId / providedClientSecret"
+    echo "Using credential IDs: ${providedClientId} / ${providedClientSecret}"
     if (providedClientId && providedClientSecret) {
        echo "Using credential IDs: providedClientId / providedClientSecret"
 
